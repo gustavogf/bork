@@ -71,6 +71,6 @@ exports.config = {
   },
 
   order: {
-    after: ["priv/static/css/app.scss"]
+    after: ["priv/static/css/app.css"]
   }
 };

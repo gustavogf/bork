@@ -47,6 +47,13 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
+    },
+
+    sass: {
+      options: {
+        includePaths: ["node_modules/materialize-css/sass"],
+        precision: 8
+      }
     }
   },
 
@@ -57,6 +64,13 @@ exports.config = {
   },
 
   npm: {
-    enabled: true
+    enabled: true,
+    globals: {
+      materialize: 'materialize-css'
+    }
+  },
+
+  order: {
+    after: ["priv/static/css/app.scss"]
   }
 };

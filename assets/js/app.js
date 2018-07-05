@@ -3,6 +3,6 @@ import "phoenix_html";
 new Vue({
   el: "#app",
   data: {
-    message: "Hello World"
+    message: "ta vendo? tá com vue!"
   }
 });

@@ -6535,6 +6535,14 @@ input[type=range]::-ms-thumb {
   align-items: center;
   justify-content: center; }
 
+.home-button {
+  width: 100%; }
+
+.buttons-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 .home-button {
   width: 100%; }
@@ -6545,7 +6553,6 @@ input[type=range]::-ms-thumb {
   align-items: center;
   justify-content: center; }
 
-
 .home-button {
   width: 100%; }
 
@@ -6554,17 +6561,6 @@ input[type=range]::-ms-thumb {
   display: flex;
   align-items: center;
   justify-content: center; }
-
-
-.home-button {
-  width: 100%; }
-
-.buttons-wrapper {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center; }
-
 
 
 /*# sourceMappingURL=app.css.map*/

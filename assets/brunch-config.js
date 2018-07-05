@@ -50,8 +50,10 @@ exports.config = {
 
   npm: {
     enabled: true,
+    whitelist: ["phoenix", "phoenix_html", "vue"],
     globals: {
-      materialize: 'materialize-css'
+      materialize: 'materialize-css',
+      Vue: "vue/dist/vue.common.js"
     }
   },
 

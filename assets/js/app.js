@@ -1,9 +1,10 @@
 import "phoenix_html";
-import App from "./App.vue";
+import VueRouter from 'vue-router';
+import router from './router.js';
+
+Vue.use(VueRouter);
 
 window.vueApp = new Vue({
   el: "#app",
-  components: {
-    App,
-  }
+  router
 });

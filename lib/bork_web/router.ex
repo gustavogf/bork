@@ -16,7 +16,7 @@ defmodule BorkWeb.Router do
   scope "/", BorkWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", HomeController, :index
+    get "/*path", ApplicationController, :index
   end
 
   # Other scopes may use custom stacks.

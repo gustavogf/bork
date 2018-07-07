@@ -2,9 +2,9 @@ defmodule Bork.Squad do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "squads" do
     field :name, :string
+    has_many :closures, Bork.Closure
     timestamps()
   end
 

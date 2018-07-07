@@ -2,9 +2,9 @@ defmodule Bork.Sprint do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "sprints" do
     field :name, :string
+    has_many :closures, Bork.Closure
     timestamps()
   end
 

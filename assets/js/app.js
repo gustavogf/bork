@@ -1,8 +1,9 @@
 import "phoenix_html";
+import App from "./App.vue";
 
-new Vue({
+window.vueApp = new Vue({
   el: "#app",
-  data: {
-    message: "ta vendo? tá com vue!"
+  components: {
+    App,
   }
 });

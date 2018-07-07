@@ -4,6 +4,7 @@ defmodule Bork.Squad do
 
   schema "squads" do
     field :name, :string
+
     has_many :closures, Bork.Closure
     timestamps()
   end
@@ -11,8 +12,9 @@ defmodule Bork.Squad do
   @doc false
   def changeset(squad, attrs) do
     squad
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :slug])
+    |> validate_required([:name, :slug])
     |> unique_constraint(:name)
+    |> unique_constraint(:slug)
   end
 end

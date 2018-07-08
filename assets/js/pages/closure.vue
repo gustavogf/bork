@@ -3,8 +3,9 @@
     <div class="row">
       <div class="col s1">
         <div v-for="(positivePostit, index) in positivePostits">
-          <a href="#" @click="setCurrentPosititvePostit(positivePostit)">{{ index }}</a>
+          <a href="#" @click="setCurrentPositivePostit(positivePostit)">{{ index }}</a>
         </div>
+        <a href="#" @click="newPositivePostit()">+</a>
       </div>
       <div class="col s5" style="border-right: 1px solid #eaeaea;">
         <div class= "row">
@@ -31,13 +32,13 @@
           <div class="col s12">
             <div v-if="currentPositivePostit.id">
               <div class="col s6">
-                <button class="btn waves-effect waves-light red lighten-2">
+                <button class="btn waves-effect waves-light red lighten-2" @click="removePositivePostit(currentPositivePostit.id)">
                   Remover
                   <i class="material-icons right">delete</i>
                 </button>
               </div>
               <div class="col s6">
-                <button class="btn waves-effect waves-light">
+                <button class="btn waves-effect waves-light" @click="editPostit(currentPositivePostit.id)">
                   Editar
                   <i class="material-icons right">edit</i>
                 </button>
@@ -73,11 +74,36 @@
             <textarea class="materialize-textarea" v-model="currentNegativePostit.description" placeholder="Descrição do Postit"></textarea>
           </div>
         </div>
+        <div class="row">
+          <div class="col s12">
+            <div v-if="currentNegativePostit.id">
+              <div class="col s6">
+                <button class="btn waves-effect waves-light red lighten-2" @click="removeNegativePostit(currentNegativePostit.id)">
+                  Remover
+                  <i class="material-icons right">delete</i>
+                </button>
+              </div>
+              <div class="col s6">
+                <button class="btn waves-effect waves-light" @click="editPostit(currentNegativePostit.id)">
+                  Editar
+                  <i class="material-icons right">edit</i>
+                </button>
+              </div>
+            </div>
+            <div v-else>
+              <button class="btn waves-effect waves-light" @click="createPostit(currentNegativePostit)">
+                Adicionar
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col s1">
         <div v-for="(negativePostit, index) in negativePostits">
-          <a href="#" @click="setCurrentPosititvePostit(negativePostit)">{{ index }}</a>
+          <a href="#" @click="setCurrentNegativePostit(negativePostit)">{{ index }}</a>
         </div>
+        <a href="#" @click="newNegativePostit()">+</a>
       </div>
     </div>
     <div class="row">
@@ -100,15 +126,72 @@ export default {
       currentNegativePostit: {
         category_id: '', description: '', closure_id: parseInt(this.$route.params.id), positive: false
       },
+      closureId: parseInt(this.$route.params.id),
       positivePostits: [],
       negativePostits: [],
-      categories: []
+      categories: [],
     };
   },
   mounted() {
     this.loadCategories();
+    this.loadPositivePostits(this.closureId);
+    this.loadNegativePostits(this.closureId);
   },
   methods: {
+    loadNegativePostits(closureId) {
+      PostitService.getPostits(closureId, false)
+      .then((response) => {
+        this.negativePostits = response.data;
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    },
+    loadPositivePostits(closureId) {
+      PostitService.getPostits(closureId, true)
+      .then((response) => {
+        this.positivePostits = response.data;
+      })
+      .catch((error) => {
+        alert(error)
+      })
+    },
+    removeNegativePostit(postitId) {
+      PostitService.removePostit(postitId)
+      .then((response) => {
+        this.loadNegativePostits(this.closureId);
+        this.newNegativePostit();
+      })
+      .catch((error) => {
+        alert(error);
+      })
+    },
+    removePositivePostit(postitId) {
+      PostitService.removePostit(postitId)
+      .then((response) => {
+        this.loadPositivePostits(this.closureId);
+        this.newPositivePostit();
+      })
+      .catch((error) => {
+        alert(error);
+      })
+    },
+    addPositivePostit(postit) {
+      this.positivePostits.push(postit);
+    },
+    addNegativePostit(postit) {
+      this.negativePostits.push(postit);
+    },
+    newPositivePostit() {
+      this.currentPositivePostit = {
+        category_id: '', description: '', closure_id: parseInt(this.$route.params.id), positive: true
+      };
+    },
+    newNegativePostit() {
+      this.currentNegativePostit = {
+        category_id: '', description: '', closure_id: parseInt(this.$route.params.id), positive: false
+      };
+    },
     loadCategories() {
       CategoryService.getCategories()
       .then((response) => {
@@ -127,7 +210,14 @@ export default {
     createPostit(postit) {
       PostitService.createPostit(postit)
       .then((response) => {
-        console.log(response.data);
+        const postit = response.data;
+        if(postit.positive) {
+          this.addPositivePostit(postit);
+          this.newPositivePostit();
+        } else {
+          this.addNegativePostit(postit);
+          this.newNegativePostit();
+        }
       })
       .catch((error) => {
         alert(error);

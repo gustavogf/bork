@@ -1,6 +1,10 @@
 defmodule BorkWeb.Api.PostitView do
   use BorkWeb, :view
 
+  def render("index.json", %{ postits: postits }) do
+    Enum.map(postits, &postit_json/1)
+  end
+
   def render("create.json", %{ postit: postit }) do
     postit_json(postit)
   end

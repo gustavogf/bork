@@ -13,6 +13,7 @@
                         'Elixir.BorkWeb.Api.CategoryView',
                         'Elixir.BorkWeb.Api.ClosureController',
                         'Elixir.BorkWeb.Api.PostitController',
+                        'Elixir.BorkWeb.Api.PostitView',
                         'Elixir.BorkWeb.Api.SprintController',
                         'Elixir.BorkWeb.Api.SprintView',
                         'Elixir.BorkWeb.Api.SquadController',

@@ -38,7 +38,7 @@
                 </button>
               </div>
               <div class="col s6">
-                <button class="btn waves-effect waves-light" @click="editPostit(currentPositivePostit.id)">
+                <button class="btn waves-effect waves-light" @click="editPositivePostit(currentPositivePostit)">
                   Editar
                   <i class="material-icons right">edit</i>
                 </button>
@@ -84,7 +84,7 @@
                 </button>
               </div>
               <div class="col s6">
-                <button class="btn waves-effect waves-light" @click="editPostit(currentNegativePostit.id)">
+                <button class="btn waves-effect waves-light" @click="editNegativePostit(currentNegativePostit)">
                   Editar
                   <i class="material-icons right">edit</i>
                 </button>
@@ -138,6 +138,26 @@ export default {
     this.loadNegativePostits(this.closureId);
   },
   methods: {
+    editPositivePostit(postit) {
+      PostitService.editPostit(postit)
+      .then((response) => {
+        this.loadPositivePostits(this.closureId);
+        this.currentPositivePositit = response.data;
+      })
+      .catch((error) => {
+        alert(error);
+      })
+    },
+    editNegativePostit(postit) {
+      PostitService.editPostit(postit)
+      .then((response) => {
+        this.loadNegativePostits(this.closureId);
+        this.currentNegativePositit = response.data;
+      })
+      .catch((error) => {
+        alert(error);
+      })
+    },
     loadNegativePostits(closureId) {
       PostitService.getPostits(closureId, false)
       .then((response) => {

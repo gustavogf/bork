@@ -16,6 +16,9 @@ defmodule BorkWeb.Router do
   scope "/api", BorkWeb.Api do
     pipe_through :api
 
+    resources "/postits", PostitController
+    resources "/categories", CategoryController, only: [:index]
+    resources "/closures", ClosureController, only: [:create]
     resources "/sprints", SprintController, only: [:index]
     resources "/squads", SquadController, only: [:index]
   end
@@ -25,9 +28,4 @@ defmodule BorkWeb.Router do
 
     get "/*path", ApplicationController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", BorkWeb do
-  #   pipe_through :api
-  # end
 end

@@ -3,7 +3,7 @@
     <div>
       <div class="row">
         <div class="col s12">
-          <router-link to="/new-closure/squads" class="waves-effect waves-light btn-large blue lighten-1 home-button">
+          <router-link to="/novo-fechamento/squads" class="waves-effect waves-light btn-large blue lighten-1 home-button">
             <i class="material-icons right">keyboard_arrow_right</i>Novo fechamento
           </router-link>
         </div>

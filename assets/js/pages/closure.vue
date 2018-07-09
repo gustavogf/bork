@@ -47,7 +47,7 @@
             <div v-else>
               <button class="btn waves-effect waves-light" @click="createPostit(currentPositivePostit)">
                 Adicionar
-                <i class="material-icons right">send</i>
+                <i class="material-icons right">add</i>
               </button>
             </div>
           </div>
@@ -93,7 +93,7 @@
             <div v-else>
               <button class="btn waves-effect waves-light" @click="createPostit(currentNegativePostit)">
                 Adicionar
-                <i class="material-icons right">send</i>
+                <i class="material-icons right">add</i>
               </button>
             </div>
           </div>
@@ -108,7 +108,10 @@
     </div>
     <div class="row">
       <div class="col s12">
-
+        <button class="btn waves-effect waves-light" @click="finish()">
+          Finalizar
+          <i class="material-icons right">done</i>
+        </button>
       </div>
     </div>
   </div>
@@ -138,6 +141,9 @@ export default {
     this.loadNegativePostits(this.closureId);
   },
   methods: {
+    finish() {
+
+    },
     editPositivePostit(postit) {
       PostitService.editPostit(postit)
       .then((response) => {

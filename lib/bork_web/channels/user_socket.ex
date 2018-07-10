@@ -2,7 +2,7 @@ defmodule BorkWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", BorkWeb.RoomChannel
+  channel "closure:*", BorkWeb.ClosureChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket, timeout: 45_000

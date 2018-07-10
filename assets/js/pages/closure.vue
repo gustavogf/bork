@@ -119,6 +119,8 @@
 <script>
 import CategoryService from '../services/category-service';
 import PostitService from '../services/postit-service';
+import UserService from '../services/user-service';
+import { Socket } from 'phoenix-socket';
 
 export default {
   data() {
@@ -133,16 +135,40 @@ export default {
       positivePostits: [],
       negativePostits: [],
       categories: [],
+      channel: null,
+      userId: null
     };
   },
   mounted() {
+    this.getUserId();
     this.loadCategories();
     this.loadPositivePostits(this.closureId);
     this.loadNegativePostits(this.closureId);
   },
   methods: {
+    getUserId() {
+      UserService.getUserId()
+      .then((response) => {
+        this.userId = response.data;
+        this.connectToSocket();
+      })
+      .catch((error) => {
+        alert(error);
+      })
+    },
+    connectToSocket() {
+      // Connect to the websocket server
+      let socket = new Socket("/socket");
+      socket.connect();
+       // Join in the links channel
+      this.channel = socket.channel(`closure:${this.closureId}`, { user_id: this.userId });
+      this.channel.join()
+      .receive("ok", resp => { console.log("NewLink Joined successfully", resp) })
+      .receive("error", resp => { console.log("NewLink Unable to join", resp) })
+    },
     finish() {
-
+      this.channel.push("closure:finished", { user_id: this.userId });
+      // fazer o push para a proxima rota
     },
     editPositivePostit(postit) {
       PostitService.editPostit(postit)

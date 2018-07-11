@@ -11,12 +11,18 @@ defmodule BorkWeb.ClosureChannel do
 
   def handle_in("closure:finished", params, socket) do
     closure_id = socket.assigns[:closure_id]
-    #user_id = params["user_id"]
-    #users = socket.assigns[:users]
-    #users[user_id][:finished] = true
-    #socket = assign(socket, :users, users)
-
     broadcast!(socket, "closure:#{ closure_id }:who_finished", %{})
     {:reply, :ok, socket}
   end
 end
+
+
+# idea de como fazer
+# criar tabela usuario_fechamento
+# uuid closure_id finished = default = false
+#
+# usuario deu join no channel, insere linha na tabela
+#
+# usuario deu finished
+#   marca que naquele usuario_fechamento ele esta finished
+#   verifica se todos estao finished, se sim da broadcast para mudar tela

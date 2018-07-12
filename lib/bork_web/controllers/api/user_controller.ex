@@ -10,7 +10,7 @@ defmodule BorkWeb.Api.UserController do
       user = Repo.get!(User, user_id)
       render conn, "create.json", user: user
     else
-      json conn, %{}
+      render conn, "empty.json", %{}
     end
   end
 

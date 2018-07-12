@@ -41,14 +41,3 @@ defmodule BorkWeb.ClosureChannel do
     {:reply, :ok, socket}
   end
 end
-
-
-# idea de como fazer
-# criar tabela usuario_fechamento
-# uuid closure_id finished = default = false
-#
-# usuario deu join no channel, insere linha na tabela
-#
-# usuario deu finished
-#   marca que naquele usuario_fechamento ele esta finished
-#   verifica se todos estao finished, se sim da broadcast para mudar tela

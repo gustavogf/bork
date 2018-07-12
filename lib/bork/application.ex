@@ -12,6 +12,7 @@ defmodule Bork.Application do
       supervisor(Bork.Repo, []),
       # Start the endpoint when the application starts
       supervisor(BorkWeb.Endpoint, []),
+      supervisor(BorkWeb.Presence, []),
       # Start your own worker by calling: Bork.Worker.start_link(arg1, arg2, arg3)
       # worker(Bork.Worker, [arg1, arg2, arg3]),
     ]

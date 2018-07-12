@@ -1,7 +1,7 @@
 class PostitService {
-  createPostit(postit) {
+  createPostit(postit, userId) {
     let url = '/api/postits';
-    return Vue.http.post(url, { postit: postit });
+    return Vue.http.post(url, { postit: postit, user_id: userId });
   }
 
   editPostit(postit) {
@@ -14,9 +14,9 @@ class PostitService {
     return  Vue.http.delete(url);
   }
 
-  getPostits(closureId, positive) {
+  getPostits(closureId, positive, userId) {
     let url = '/api/postits';
-    return Vue.http.get(url, { params: { closure_id: closureId, positive: positive } })
+    return Vue.http.get(url, { params: { closure_id: closureId, positive: positive, user_id: userId } })
   }
 }
 

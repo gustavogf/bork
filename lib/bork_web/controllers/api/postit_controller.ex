@@ -4,14 +4,8 @@ defmodule BorkWeb.Api.PostitController do
   use BorkWeb, :controller
   alias Bork.{Postit, Repo, Category, Closure}
 
-  def index(conn, %{ "closure_id" => closure_id, "positive" => positive } = params) do
+  def index(conn, %{ "closure_id" => closure_id, "positive" => positive, "user_id" => user_id }) do
     conn = fetch_session(conn)
-    user_id = get_session(conn, :user_bork_id)
-    if !user_id do
-      user_id = Ecto.UUID.generate()
-      conn = put_session(conn, :user_bork_id, user_id)
-    end
-
     query = from p in Postit,
             where: p.user_id == ^user_id and p.closure_id == ^closure_id and p.positive == ^positive,
             order_by: [asc: p.id]
@@ -20,7 +14,7 @@ defmodule BorkWeb.Api.PostitController do
     render conn, "index.json", postits: postits
   end
 
-  def update(conn, %{ "id" => id, "postit" => postit } = params) do
+  def update(conn, %{ "id" => id, "postit" => postit }) do
     saved_postit = Repo.get!(Postit, id)
     |> Ecto.Changeset.change(%{ category_id: postit["category_id"], description: postit["description"] })
     |> Repo.update!
@@ -33,16 +27,9 @@ defmodule BorkWeb.Api.PostitController do
     json conn, 'ok'
   end
 
-  def create(conn, %{ "postit" => postit } = params) do
+  def create(conn, %{ "postit" => postit, "user_id" => user_id }) do
     category = Repo.get(Category, postit["category_id"])
     closure = Repo.get(Closure, postit["closure_id"])
-
-    conn = fetch_session(conn)
-    user_id = get_session(conn, :user_bork_id)
-    if !user_id do
-      user_id = Ecto.UUID.generate()
-      conn = put_session(conn, :user_bork_id, user_id)
-    end
 
     changeset = %Postit{
       category: category,

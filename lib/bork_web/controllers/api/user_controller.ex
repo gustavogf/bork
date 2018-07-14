@@ -7,7 +7,13 @@ defmodule BorkWeb.Api.UserController do
     conn = fetch_session(conn)
     user_id = get_session(conn, :user_bork_id)
     if user_id do
-      user = Repo.get!(User, user_id)
+      [status, user] = Repo.get(User, user_id)
+      case status do
+        :ok ->
+          render conn, "create.json", user: user
+        _ ->
+          render conn, "empty.json", %{}
+      end
       render conn, "create.json", user: user
     else
       render conn, "empty.json", %{}

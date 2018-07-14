@@ -2,3 +2,4 @@
 package-lock.json
 /priv/static/*
 .DS_Store
+_build/*

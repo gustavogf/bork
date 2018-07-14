@@ -14,7 +14,6 @@ defmodule BorkWeb.Api.UserController do
         _ ->
           render conn, "empty.json", %{}
       end
-      render conn, "create.json", user: user
     else
       render conn, "empty.json", %{}
     end

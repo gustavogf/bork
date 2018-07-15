@@ -6,6 +6,7 @@ defmodule Bork.Closure do
     belongs_to :sprint, Bork.Sprint
     belongs_to :squad, Bork.Squad
     has_many :postits, Bork.Postit
+    has_many :closure_participants, Bork.ClosureParticipant
     timestamps()
   end
 

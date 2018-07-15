@@ -27,7 +27,7 @@ export default {
         this.squads = response.data;
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao carregar squads');
       })
     }
   }

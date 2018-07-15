@@ -26,7 +26,7 @@ export default {
         this.sprints = response.data;
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao carregar sprints');
       })
     },
     createClosure(sprintId) {
@@ -36,7 +36,7 @@ export default {
         this.$router.push({ name: 'closure', params: { id: response.data } });
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao criar fechamento');
       })
     }
   }

@@ -6,6 +6,7 @@ defmodule Bork.User do
   schema "users" do
     field :name, :string
     has_many :postits, Bork.Postit
+    has_many :closure_participants, Bork.ClosureParticipant
     timestamps()
   end
 

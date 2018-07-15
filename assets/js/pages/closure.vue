@@ -185,7 +185,7 @@ export default {
         }
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro no get current user');
       })
     },
     configureName(userName) {
@@ -195,8 +195,7 @@ export default {
         this.connectToSocket();
       })
       .catch((error) => {
-        console.log(error);
-        alert(error);
+        alert('Erro ao configurar nome');
       })
     },
     connectToSocket() {
@@ -207,17 +206,17 @@ export default {
       this.channel = socket.channel(`closure:${this.closureId}`, { user_bork_id: this.currentUser.id });
       this.channel.join()
       .receive("ok", resp => { console.log("NewLink Joined successfully", resp) })
-      .receive("error", resp => { console.log("NewLink Unable to join", resp) })
+      .receive("error", resp => { console.log("NewLink Unable to join", resp) });
 
       this.channel.on("presence_state", state => {
-        this.presences = Presence.syncState(this.presences, state)
-        this.renderOnlineUsers(this.presences)
-      })
+        this.presences = Presence.syncState(this.presences, state);
+        this.renderOnlineUsers(this.presences);
+      });
 
       this.channel.on("presence_diff", diff => {
-        this.presences = Presence.syncDiff(this.presences, diff)
-        this.renderOnlineUsers(this.presences)
-      })
+        this.presences = Presence.syncDiff(this.presences, diff);
+        this.renderOnlineUsers(this.presences);
+      });
     },
     renderOnlineUsers() {
       this.onlineUsers = [];
@@ -228,8 +227,7 @@ export default {
       });
     },
     finish() {
-      this.channel.push("closure:finished", { user_id: this.currentUser.id });
-      // fazer o push para a proxima rota
+      this.$router.push({ name: 'waiting' });
     },
     editPositivePostit(postit) {
       PostitService.editPostit(postit)
@@ -238,7 +236,7 @@ export default {
         this.currentPositivePositit = response.data;
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao editar postit positivo');
       })
     },
     editNegativePostit(postit) {
@@ -248,7 +246,7 @@ export default {
         this.currentNegativePositit = response.data;
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao editar postit negativo');
       })
     },
     loadNegativePostits(closureId) {
@@ -257,7 +255,7 @@ export default {
         this.negativePostits = response.data;
       })
       .catch((error) => {
-        alert(error)
+        alert('Erro ao carregar os postits negativos');
       })
     },
     loadPositivePostits(closureId) {
@@ -266,7 +264,7 @@ export default {
         this.positivePostits = response.data;
       })
       .catch((error) => {
-        alert(error)
+        alert('Erro ao carregar postits positivos');
       })
     },
     removeNegativePostit(postitId) {
@@ -276,7 +274,7 @@ export default {
         this.newNegativePostit();
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao remover postit negativo');
       })
     },
     removePositivePostit(postitId) {
@@ -286,7 +284,7 @@ export default {
         this.newPositivePostit();
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao remover postit positivo');
       })
     },
     addPositivePostit(postit) {
@@ -311,7 +309,7 @@ export default {
         this.categories = response.data;
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao carregar categorias dos postits');
       })
     },
     setCurrentNegativePostit(postit) {
@@ -333,7 +331,7 @@ export default {
         }
       })
       .catch((error) => {
-        alert(error);
+        alert('Erro ao criar postits');
       })
     }
   }

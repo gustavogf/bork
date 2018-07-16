@@ -195,6 +195,7 @@ export default {
         this.connectToSocket();
       })
       .catch((error) => {
+        console.log(error);
         alert('Erro ao configurar nome');
       })
     },

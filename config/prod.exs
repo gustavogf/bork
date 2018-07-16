@@ -15,7 +15,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :bork, BorkWeb.Endpoint,
   load_from_system_env: true,
-  url: [scheme: "https", host: "bork.herokuapp.com", port: 443],
+  url: [scheme: "https", host: "borkq.herokuapp.com", port: 443],
   check_origin: ["https://borkq.herokuapp.com"],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",

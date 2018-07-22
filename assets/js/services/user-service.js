@@ -1,6 +1,6 @@
 class UserService {
   newUser(userName){
-    let url = '/api/users';
+    let url = '/api/user';
     return Vue.http.post(url, { name: userName });
   }
 

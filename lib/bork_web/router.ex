@@ -17,7 +17,7 @@ defmodule BorkWeb.Router do
     pipe_through :api
 
     get "/current-user", UserController, :current_user
-    resources "/users", UserController, only: [:create]
+    post "/user", UserController, :create
     resources "/postits", PostitController
     resources "/categories", CategoryController, only: [:index]
     resources "/closures", ClosureController, only: [:create]

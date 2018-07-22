@@ -22,8 +22,9 @@ defmodule BorkWeb.Api.UserController do
   def create(conn, %{ "name" => name }) do
     conn = fetch_session(conn)
     changeset = %User{name: name}
-    {:ok, user} = Repo.insert(changeset)
+    { :ok, user } = Repo.insert(changeset)
     conn = put_session(conn, :user_bork_id, user.id)
+
     render conn, "create.json", user: user
   end
 end

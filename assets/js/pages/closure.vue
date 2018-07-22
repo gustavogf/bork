@@ -126,19 +126,19 @@
     </div>
     <div class="row" v-else>
       <h4>Quem é você?</h4>
-      <form class="col s6 offset-s3">
+      <div class="col s6 offset-s3">
         <div class="row">
           <div class="input-field col s12">
-            <input v-model="userName" placeholder="Primeiro nome" id="first_name" type="text" class="validate" required>
+            <input v-model="userName" placeholder="Primeiro nome" id="first_name" type="text" class="validate">
             <label for="first_name">Nome</label>
           </div>
         </div>
         <div class="row">
-          <button class="btn waves-effect waves-light" type="submit" @click="configureName(userName)">Partiu
+          <button class="btn waves-effect waves-light" @click="configureName(userName)">Partiu
             <i class="material-icons right">send</i>
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
@@ -164,7 +164,7 @@ export default {
       categories: [],
       channel: null,
       currentUser: {},
-      userName: null,
+      userName: '',
       presences: {},
       onlineUsers: [],
     };
@@ -195,7 +195,6 @@ export default {
         this.connectToSocket();
       })
       .catch((error) => {
-        console.log(error);
         alert('Erro ao configurar nome');
       })
     },

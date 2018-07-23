@@ -1,127 +1,132 @@
 <template>
   <div align="center">
-    <div v-if="currentUser.id !== undefined">
-      <div class="row">
-        <div class="col s1">
-          <div v-for="(positivePostit, index) in positivePostits">
-            <a href="#" @click="setCurrentPositivePostit(positivePostit)">{{ index }}</a>
-          </div>
-          <a href="#" @click="newPositivePostit()">+</a>
-        </div>
-        <div class="col s5" style="border-right: 1px solid #eaeaea;">
-          <div class= "row">
-            <div class="col s12">
-              <h5>Positivos</h5>
+    <div v-if="currentUser.id">
+      <div v-if="!finished">
+        <div class="row">
+          <div class="col s1">
+            <div v-for="(positivePostit, index) in positivePostits">
+              <a href="#" @click="setCurrentPositivePostit(positivePostit)">{{ index }}</a>
             </div>
+            <a href="#" @click="newPositivePostit()">+</a>
           </div>
-          <div class="row">
-            <div class="col s12">
-              <select class="browser-default" v-model="currentPositivePostit.category_id">
-                <option disabled value="">Selecione a categoria</option>
-                <option v-for="category in categories" v-bind:value="category.id">
-                  {{ category.name }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <div class= "input-field col s12">
-              <textarea class="materialize-textarea" v-model="currentPositivePostit.description" placeholder="Descrição do Postit"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s12">
-              <div v-if="currentPositivePostit.id">
-                <div class="col s6">
-                  <button class="btn waves-effect waves-light red lighten-2" @click="removePositivePostit(currentPositivePostit.id)">
-                    Remover
-                    <i class="material-icons right">delete</i>
-                  </button>
-                </div>
-                <div class="col s6">
-                  <button class="btn waves-effect waves-light" @click="editPositivePostit(currentPositivePostit)">
-                    Editar
-                    <i class="material-icons right">edit</i>
-                  </button>
-                </div>
-              </div>
-              <div v-else>
-                <button class="btn waves-effect waves-light" @click="createPostit(currentPositivePostit)">
-                  Adicionar
-                  <i class="material-icons right">add</i>
-                </button>
+          <div class="col s5" style="border-right: 1px solid #eaeaea;">
+            <div class= "row">
+              <div class="col s12">
+                <h5>Positivos</h5>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col s5">
-          <div class= "row">
-            <div class="col s12">
-              <h5>Negativos</h5>
+            <div class="row">
+              <div class="col s12">
+                <select class="browser-default" v-model="currentPositivePostit.category_id">
+                  <option disabled value="">Selecione a categoria</option>
+                  <option v-for="category in categories" v-bind:value="category.id">
+                    {{ category.name }}
+                  </option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col s12">
-              <select class="browser-default" v-model="currentNegativePostit.category_id">
-                <option disabled value="">Selecione a categoria</option>
-                <option v-for="category in categories" v-bind:value="category.id">
-                  {{ category.name }}
-                </option>
-              </select>
+            <div class="row">
+              <div class= "input-field col s12">
+                <textarea class="materialize-textarea" v-model="currentPositivePostit.description" placeholder="Descrição do Postit"></textarea>
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class= "input-field col s12">
-              <textarea class="materialize-textarea" v-model="currentNegativePostit.description" placeholder="Descrição do Postit"></textarea>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col s12">
-              <div v-if="currentNegativePostit.id">
-                <div class="col s6">
-                  <button class="btn waves-effect waves-light red lighten-2" @click="removeNegativePostit(currentNegativePostit.id)">
-                    Remover
-                    <i class="material-icons right">delete</i>
-                  </button>
+            <div class="row">
+              <div class="col s12">
+                <div v-if="currentPositivePostit.id">
+                  <div class="col s6">
+                    <button class="btn waves-effect waves-light red lighten-2" @click="removePositivePostit(currentPositivePostit.id)">
+                      Remover
+                      <i class="material-icons right">delete</i>
+                    </button>
+                  </div>
+                  <div class="col s6">
+                    <button class="btn waves-effect waves-light" @click="editPositivePostit(currentPositivePostit)">
+                      Editar
+                      <i class="material-icons right">edit</i>
+                    </button>
+                  </div>
                 </div>
-                <div class="col s6">
-                  <button class="btn waves-effect waves-light" @click="editNegativePostit(currentNegativePostit)">
-                    Editar
-                    <i class="material-icons right">edit</i>
+                <div v-else>
+                  <button class="btn waves-effect waves-light" @click="createPostit(currentPositivePostit)">
+                    Adicionar
+                    <i class="material-icons right">add</i>
                   </button>
                 </div>
               </div>
-              <div v-else>
-                <button class="btn waves-effect waves-light" @click="createPostit(currentNegativePostit)">
-                  Adicionar
-                  <i class="material-icons right">add</i>
-                </button>
+            </div>
+          </div>
+          <div class="col s5">
+            <div class= "row">
+              <div class="col s12">
+                <h5>Negativos</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <select class="browser-default" v-model="currentNegativePostit.category_id">
+                  <option disabled value="">Selecione a categoria</option>
+                  <option v-for="category in categories" v-bind:value="category.id">
+                    {{ category.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class= "input-field col s12">
+                <textarea class="materialize-textarea" v-model="currentNegativePostit.description" placeholder="Descrição do Postit"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div v-if="currentNegativePostit.id">
+                  <div class="col s6">
+                    <button class="btn waves-effect waves-light red lighten-2" @click="removeNegativePostit(currentNegativePostit.id)">
+                      Remover
+                      <i class="material-icons right">delete</i>
+                    </button>
+                  </div>
+                  <div class="col s6">
+                    <button class="btn waves-effect waves-light" @click="editNegativePostit(currentNegativePostit)">
+                      Editar
+                      <i class="material-icons right">edit</i>
+                    </button>
+                  </div>
+                </div>
+                <div v-else>
+                  <button class="btn waves-effect waves-light" @click="createPostit(currentNegativePostit)">
+                    Adicionar
+                    <i class="material-icons right">add</i>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col s1">
-          <div v-for="(negativePostit, index) in negativePostits">
-            <a href="#" @click="setCurrentNegativePostit(negativePostit)">{{ index }}</a>
+          <div class="col s1">
+            <div v-for="(negativePostit, index) in negativePostits">
+              <a href="#" @click="setCurrentNegativePostit(negativePostit)">{{ index }}</a>
+            </div>
+            <a href="#" @click="newNegativePostit()">+</a>
           </div>
-          <a href="#" @click="newNegativePostit()">+</a>
         </div>
-      </div>
-      <div class="row">
-        <div class="col s12">
-          <button class="btn waves-effect waves-light" @click="finish()">
-            Finalizar
-            <i class="material-icons right">done</i>
-          </button>
+        <div class="row">
+          <div class="col s12">
+            <button class="btn waves-effect waves-light" @click="finish()">
+              Finalizar
+              <i class="material-icons right">done</i>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="s4 offset-4">
+        <div class="row">
+          <div class="s4 offset-4">
             <h5>Online:</h5>
             <div v-for="user in onlineUsers">
               {{ user.name }}
             </div>
+          </div>
         </div>
+      </div>
+      <div v-else>
+        Esperando os outros terminarem
       </div>
     </div>
     <div class="row" v-else>
@@ -167,18 +172,29 @@ export default {
       userName: '',
       presences: {},
       onlineUsers: [],
+      finished: false
     };
   },
   mounted() {
     this.fetchCurrentUser();
+    this.checkIfUserFinished();
     this.loadCategories();
   },
   methods: {
+    checkIfUserFinished() {
+      UserService.checkIfUserFinished(closureId)
+      .then((response) => {
+        this.finished = response.data;
+      })
+      .catch((error) => {
+        alert('Erro ao checar se usuario ja finalizou');
+      })
+    },
     fetchCurrentUser() {
       UserService.getCurrentUser()
       .then((response) => {
         this.currentUser = response.data;
-        if(this.currentUser.id !== undefined) {
+        if(this.currentUser.id) {
           this.loadPositivePostits(this.closureId);
           this.loadNegativePostits(this.closureId);
           this.connectToSocket();

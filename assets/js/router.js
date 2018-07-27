@@ -3,7 +3,7 @@ import Home from './pages/home.vue';
 import SquadSelection from './pages/squad-selection.vue';
 import SprintSelection from './pages/sprint-selection.vue';
 import Closure from './pages/closure.vue';
-import Waiting from './pages/waiting.vue';
+import ClosureSummary from './pages/closure-summary.vue';
 
 const router = new VueRouter({
   mode: 'history',
@@ -13,7 +13,7 @@ const router = new VueRouter({
     { path: '/novo-fechamento/squads', name: 'new_closure_squads', component: SquadSelection },
     { path: '/novo-fechamento/squad/:squadId/sprints', name: 'new_closure_sprint', component: SprintSelection },
     { path: '/fechamento/:id', name: 'closure', component: Closure },
-    { path: '/esperando', name: 'waiting', component: Waiting }
+    { path: '/fechamento/:id/resumo', name: 'closure_summary', component: ClosureSummary },
   ],
 });
 

@@ -176,19 +176,13 @@ export default {
     };
   },
   mounted() {
+    this.checkClosureIsFinished();
     this.fetchCurrentUser();
-    this.checkIfUserFinished();
     this.loadCategories();
   },
   methods: {
-    checkIfUserFinished() {
-      UserService.checkIfUserFinished(closureId)
-      .then((response) => {
-        this.finished = response.data;
-      })
-      .catch((error) => {
-        alert('Erro ao checar se usuario ja finalizou');
-      })
+    checkClosureIsFinished(){
+      return true;
     },
     fetchCurrentUser() {
       UserService.getCurrentUser()
@@ -233,6 +227,10 @@ export default {
         this.presences = Presence.syncDiff(this.presences, diff);
         this.renderOnlineUsers(this.presences);
       });
+
+      this.channel.on('closure:done', () => {
+        this.$router.push({ name: 'closure_summary', params: { closureId: this.closureId } });
+      });
     },
     renderOnlineUsers() {
       this.onlineUsers = [];
@@ -243,7 +241,8 @@ export default {
       });
     },
     finish() {
-      this.$router.push({ name: 'waiting' });
+      this.finished = true;
+      this.channel.push('closure:finished');
     },
     editPositivePostit(postit) {
       PostitService.editPostit(postit)

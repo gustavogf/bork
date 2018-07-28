@@ -1,7 +1,39 @@
 <template>
-  <div v-if="closureFinished">
-    <div class="row" >
+  <div v-if="postits !== null">
+    <div class="row" align="center">
       <div class="col s12">
+        <h5>Positivos</h5>
+      </div>
+    </div>
+    <div v-for="positive in postits.positive.data">
+      <div class="row">
+        <div class="col s12" align="center">
+          <strong>{{ positive.category }}</strong>
+          <div v-for="postit in positive.postits">
+            {{ postit.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" align="center">
+      <div class="col s12">
+        <h5>Negativos</h5>
+      </div>
+    </div>
+    <div v-for="negative in postits.negative.data">
+      <div class="row">
+        <div class="col s12" align="center">
+          <strong>{{ negative.category }}</strong>
+          <div v-for="postit in negative.postits">
+            {{ postit.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12" align="center">
+        Positivos: {{ postits.positive.total }}
+        Negativos: {{ postits.negative.total }}
       </div>
     </div>
   </div>
@@ -15,8 +47,7 @@ export default {
   data() {
     return {
       closureId: this.$route.params.id,
-      closureFinished: false,
-      postits: {},
+      postits: null,
     }
   },
   mounted() {
@@ -38,12 +69,10 @@ export default {
         if(!response.data.finished) {
           this.$router.push({ name: 'closure', params: { id: this.closureId } })
         } else {
-          this.closureFinished = true;
           this.loadPostits();
         }
       })
       .catch((error) => {
-        debugger;
         alert('Erro ao checar se o fechamento ja fechou');
       });
     }

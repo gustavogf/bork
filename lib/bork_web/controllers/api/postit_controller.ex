@@ -43,8 +43,21 @@ defmodule BorkWeb.Api.PostitController do
   end
 
   def summary_postits(conn, %{ "closure_id" => closure_id }) do
-    query = from p in Postit, where: p.closure_id == ^closure_id
-    postits = Repo.all(query)
-    json conn, %{ postits: "ok" } #FIXME
+    postit_query_positive = from postit in Postit, where: postit.closure_id == ^closure_id and postit.positive == true
+
+    positive_query = from c in Category,
+                     join: p in assoc(c, :postits),
+                     where: p.closure_id == ^closure_id and p.positive == true,
+                     preload: [postits: ^postit_query_positive], group_by: c.id
+    positive_postits = Repo.all(positive_query)
+
+    postit_query_negative = from postit in Postit, where: postit.closure_id == ^closure_id and postit.positive == false
+    negative_query = from c in Category,
+                     join: p in assoc(c, :postits),
+                     where: p.closure_id == ^closure_id and p.positive == false,
+                     preload: [postits: ^postit_query_negative], group_by: c.id
+    negative_postits = Repo.all(negative_query)
+
+    render conn, "summary_postit.json", positive: positive_postits, negative: negative_postits
   end
 end

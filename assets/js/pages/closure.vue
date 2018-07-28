@@ -1,7 +1,7 @@
 <template>
   <div align="center">
     <div v-if="currentUser.id">
-      <div v-if="!finished">
+      <div v-if="!userFinished">
         <div class="row">
           <div class="col s1">
             <div v-for="(positivePostit, index) in positivePostits">
@@ -152,6 +152,7 @@
 import CategoryService from '../services/category-service';
 import PostitService from '../services/postit-service';
 import UserService from '../services/user-service';
+import ClosureService from '../services/closure-service';
 import {Socket, Presence} from "phoenix";
 
 export default {
@@ -172,17 +173,28 @@ export default {
       userName: '',
       presences: {},
       onlineUsers: [],
-      finished: false
+      userFinished: null,
+      closureFinished: null,
     };
   },
   mounted() {
-    this.checkClosureIsFinished();
-    this.fetchCurrentUser();
-    this.loadCategories();
+    this.checkIfClosureIsFinished();
   },
   methods: {
-    checkClosureIsFinished(){
-      return true;
+    checkIfClosureIsFinished(){
+      ClosureService.checkIfClosureIsFinished(this.closureId)
+      .then((response) => {
+        this.closureFinished = response.data.finished;
+        if(this.closureFinished) {
+          this.goToSummary();
+        } else {
+          this.fetchCurrentUser();
+          this.loadCategories();
+        }
+      })
+      .catch((error) => {
+        alert('Erro ao checar se o fechamento ja terminou');
+      })
     },
     fetchCurrentUser() {
       UserService.getCurrentUser()
@@ -229,7 +241,7 @@ export default {
       });
 
       this.channel.on('closure:done', () => {
-        this.$router.push({ name: 'closure_summary', params: { closureId: this.closureId } });
+        this.goToSummary();
       });
     },
     renderOnlineUsers() {
@@ -240,8 +252,11 @@ export default {
         }
       });
     },
+    goToSummary() {
+      this.$router.push({ name: 'closure_summary', params: { closureId: this.closureId } });
+    },
     finish() {
-      this.finished = true;
+      this.userFinished = true;
       this.channel.push('closure:finished');
     },
     editPositivePostit(postit) {

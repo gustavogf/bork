@@ -21,7 +21,7 @@ defmodule BorkWeb.Api.PostitController do
     render conn, "create.json", postit: saved_postit
   end
 
-  def delete(conn, %{ "id" => id } =params) do
+  def delete(conn, %{ "id" => id }) do
     postit = Repo.get!(Postit, id)
     Repo.delete!(postit)
     json conn, 'ok'
@@ -40,5 +40,11 @@ defmodule BorkWeb.Api.PostitController do
     }
     postit = Repo.insert!(changeset)
     render conn, "create.json", postit: postit
+  end
+
+  def summary_postits(conn, %{ "closure_id" => closure_id }) do
+    query = from p in Postit, where: p.closure_id == ^closure_id
+    postits = Repo.all(query)
+    json conn, %{ postits: "ok" } #FIXME
   end
 end

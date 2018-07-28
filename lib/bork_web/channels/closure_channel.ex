@@ -29,7 +29,7 @@ defmodule BorkWeb.ClosureChannel do
     {:noreply, socket}
   end
 
-  def handle_in("closure:finished", params, socket) do
+  def handle_in("closure:finished", _params, socket) do
     closure_id = socket.assigns[:closure_id]
     user = Repo.get(User, socket.assigns[:user_bork_id])
 
@@ -42,6 +42,10 @@ defmodule BorkWeb.ClosureChannel do
       from p in ClosureParticipant, select: count("p.id"), where: p.finished == true and p.closure_id == ^closure_id
     )
     if users_finished >= total_users_connected do
+      Repo.get(Closure, closure_id)
+      |> Ecto.Changeset.change(%{ finished: true })
+      |> Repo.update!
+
       broadcast!(socket, "closure:done", %{})
     end
     {:reply, :ok, socket}

@@ -3,6 +3,7 @@ defmodule Bork.Closure do
   import Ecto.Changeset
 
   schema "closures" do
+    field :finished, :boolean
     belongs_to :sprint, Bork.Sprint
     belongs_to :squad, Bork.Squad
     has_many :postits, Bork.Postit
@@ -13,7 +14,7 @@ defmodule Bork.Closure do
   @doc false
   def changeset(closure, attrs) do
     closure
-    |> cast(attrs, [:sprint, :squad])
-    |> validate_required([:sprint, :squad])
+    |> cast(attrs, [:sprint, :squad, :finished])
+    |> validate_required([:sprint, :squad, :finished])
   end
 end

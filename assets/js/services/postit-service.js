@@ -18,6 +18,11 @@ class PostitService {
     let url = '/api/postits';
     return Vue.http.get(url, { params: { closure_id: closureId, positive: positive, user_id: userId } })
   }
+
+  getPostitsForSummary(closureId) {
+    let url = `/api/summary-postits/${closureId}`;
+    return Vue.http.get(url);
+  }
 }
 
 export default new PostitService();

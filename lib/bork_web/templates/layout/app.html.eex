@@ -13,9 +13,30 @@
 </head>
 
 <body>
+  <nav style="background-color: #18acc4">
+    <div class="nav-wrapper">
+      <div class="row">
+        <div class="col s12">
+          <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+          <a href="/" class="brand-logo">BorkQ</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <a href="#name"><span class="name">Nome do Usuario</span></a>
+      <a href="#email"><span class="email">squad</span></a>
+    </div></li>
+    <li><a class="waves-effect" href="/novo-fechamento/squads">Novo Fechamento</a></li>
+    <li><a class="waves-effect" href="/novo-fechamento/squads">Fechamentos antigos</a></li>
+  </ul>
+
   <div class="container">
-    <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <!-- <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+    <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p> -->
 
     <main role="main">
       <%= render @view_module, @view_template, assigns %>
@@ -25,3 +46,10 @@
   <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 </body>
 </html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+  });
+</script>

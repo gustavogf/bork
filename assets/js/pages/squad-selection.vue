@@ -1,4 +1,5 @@
 <template>
+  <div class="row">
   <ul class="collection with-header">
     <li class="collection-header"><h4>Qual squad?</h4></li>
     <div v-for="squad in squads">
@@ -7,6 +8,7 @@
       </router-link>
     </div>
   </ul>
+</div>
 </template>
 <script>
 import SquadService from '../services/squad-service';

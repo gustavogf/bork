@@ -2,31 +2,35 @@
   <div v-if="postits !== null">
     <div class="row" align="center">
       <div class="col s12">
-        <h5>Positivos</h5>
+        <h4>Positivos</h4>
       </div>
     </div>
     <div v-for="positive in postits.positive.data">
       <div class="row">
         <div class="col s12" align="center">
-          <strong>{{ positive.category }}</strong>
-          <div v-for="postit in positive.postits">
-            {{ postit.description }}
-          </div>
+          <ul class="collection with-header">
+            <li class="collection-header"><h5>{{positive.category}}</h5></li>
+            <div v-for="postit in positive.postits">
+              <li class="collection-item">{{ postit.description }}</li>
+            </div>
+          </ul>
         </div>
       </div>
     </div>
     <div class="row" align="center">
       <div class="col s12">
-        <h5>Negativos</h5>
+        <h4>Negativos</h4>
       </div>
     </div>
     <div v-for="negative in postits.negative.data">
       <div class="row">
         <div class="col s12" align="center">
-          <strong>{{ negative.category }}</strong>
-          <div v-for="postit in negative.postits">
-            {{ postit.description }}
-          </div>
+          <ul class="collection with-header">
+            <li class="collection-header"><h5>{{negative.category}}</h5></li>
+            <div v-for="postit in negative.postits">
+              <li class="collection-item">{{ postit.description }}</li>
+            </div>
+          </ul>
         </div>
       </div>
     </div>

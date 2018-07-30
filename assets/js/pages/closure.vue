@@ -153,7 +153,7 @@ import CategoryService from '../services/category-service';
 import PostitService from '../services/postit-service';
 import UserService from '../services/user-service';
 import ClosureService from '../services/closure-service';
-import {Socket, Presence} from "phoenix";
+import { Socket, Presence } from 'phoenix';
 
 export default {
   data() {

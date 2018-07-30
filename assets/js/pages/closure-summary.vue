@@ -9,10 +9,12 @@
       <div class="row">
         <div class="col s12" align="center">
           <ul class="collection with-header">
-            <li class="collection-header"><h5>{{positive.category}}</h5></li>
-            <div v-for="postit in positive.postits">
-              <li class="collection-item">{{ postit.description }}</li>
-            </div>
+            <li class="collection-header">
+              <h5>{{positive.category}}</h5>
+            </li>
+            <li class="collection-item" v-for="postit in positive.postits">
+              {{ postit.description }}
+            </li>
           </ul>
         </div>
       </div>
@@ -27,9 +29,9 @@
         <div class="col s12" align="center">
           <ul class="collection with-header">
             <li class="collection-header"><h5>{{negative.category}}</h5></li>
-            <div v-for="postit in negative.postits">
-              <li class="collection-item">{{ postit.description }}</li>
-            </div>
+            <li class="collection-item" v-for="postit in negative.postits">
+              {{ postit.description }}
+            </li>
           </ul>
         </div>
       </div>

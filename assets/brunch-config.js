@@ -36,7 +36,6 @@ exports.config = {
 
     sass: {
       options: {
-        includePaths: ["node_modules/materialize-css/sass"],
         precision: 8
       }
     }
@@ -52,7 +51,6 @@ exports.config = {
     enabled: true,
     whitelist: ["phoenix", "phoenix_html", "vue"],
     globals: {
-      materialize: 'materialize-css',
       Vue: "vue/dist/vue.common.js"
     }
   },

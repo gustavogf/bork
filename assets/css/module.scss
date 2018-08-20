@@ -1,1 +1,6 @@
-@import "home/module.scss";
+@import 'overrides';
+@import 'variables';
+@import 'colors';
+@import 'global';
+@import 'components/module';
+@import 'home/module';

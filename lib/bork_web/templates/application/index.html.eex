@@ -1,6 +1,7 @@
 <div id="app">
-  <navbar></navbar>
-  <div class="container">
-    <router-view></router-view>
+  <div class="grid-container">
+    <div class="menu-wrapper"><menu-layout/></div>
+    <div class="header-wrapper"><header-layout/></div>
+    <div class="main-wrapper"><main-layout/></div>
   </div>
 </div>

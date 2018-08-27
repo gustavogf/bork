@@ -43,24 +43,38 @@
 }
 </style>
 <script>
-var specifiedElement = document.querySelector('.menu-wrapper');
-
-//I'm using "click" but it works with any event
-document.addEventListener('click', function(event) {
-  var isClickInside = specifiedElement.contains(event.target);
-
-  if (!isClickInside) {
-    document.querySelector('.menu-wrapper').style.width = '0';
-  }
-});
-
 export default {
+  mounted() {
+    this.addListenerToMenu();
+  },
   methods: {
+    addListenerToMenu() {
+      if (this.isMobile()){
+        const specifiedElement = document.querySelector('.menu-wrapper');
+        const openMenuButtom = document.querySelector('.header__menu-buttom');
+
+        document.addEventListener('click', function(event) {
+          const isClickInsideMenu = specifiedElement.contains(event.target);
+          const isClickInHeaderButton = openMenuButtom.contains(event.target);
+
+          if (!isClickInsideMenu && !isClickInHeaderButton) {
+            document.querySelector('.menu-wrapper').style.width = '0';
+          }
+        });
+      }
+    },
     openNav() {
       document.querySelector('.menu-wrapper').style.width = '250px';
     },
     closeNav() {
       document.querySelector('.menu-wrapper').style.width = '0';
+    },
+    isMobile() {
+      if(window.innerWidth < 992) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };

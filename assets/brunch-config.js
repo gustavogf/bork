@@ -54,8 +54,4 @@ exports.config = {
       Vue: "vue/dist/vue.common.js"
     }
   },
-
-  order: {
-    after: ["priv/static/css/app.css"]
-  }
 };

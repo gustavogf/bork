@@ -8,7 +8,7 @@
     <div class="menu__list-wrapper">
       <ul class="menu__list">
         <li class="menu__list-item">
-          <router-link :to="{ name: 'new_closure_squads' }" class="menu-layout__list-item btn btn1">
+          <router-link :to="{ name: 'new_closure_squads' }" class="menu-button" @click="closeMenu">
             Retrospectiva
           </router-link>
         </li>
@@ -16,6 +16,15 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    closeMenu() {
+      document.querySelector('.menu-wrapper').style.width = '0';
+    }
+  }
+}
+</script>
 <style lang="scss">
 @import 'css/colors';
 
@@ -37,9 +46,24 @@
   margin-bottom: 16px;
 }
 
-.menu__list-wrapper {
-}
+.menu-button {
+  background: transparent;
+  background-color: $white;
+  border-bottom: 1px solid $gray;
+  color: $white;
+  box-sizing: border-box;
+  padding: 16px 12px;
+  display: inline-block;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-decoration: none;
+  color: $dark-gray;
+  width: 100%;
 
-.menu__list {
+  &:hover {
+    background-color: $orange;
+    color: $white;
+  }
 }
 </style>

@@ -2,7 +2,7 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js"
+      joinTo: "js/app.js",
     },
     stylesheets: {
       joinTo: "css/app.css"
@@ -16,7 +16,8 @@ exports.config = {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/assets/static". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(static)/
+    assets: /^(static)/,
+    ignored: /^(css\/style)/
   },
 
   // Phoenix paths configuration
@@ -32,12 +33,6 @@ exports.config = {
     babel: {
       // Do not use ES6 compiler in vendor code
       ignore: [/vendor/]
-    },
-
-    sass: {
-      options: {
-        precision: 8
-      }
     }
   },
 
@@ -52,6 +47,6 @@ exports.config = {
     whitelist: ["phoenix", "phoenix_html", "vue"],
     globals: {
       Vue: "vue/dist/vue.common.js"
-    }
+    },
   },
 };

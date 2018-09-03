@@ -1,8 +1,8 @@
 /* This file is for your main application css. */
 @import url('https://fonts.googleapis.com/css?family=Work+Sans');
-@import 'overrides';
-@import 'variables';
-@import 'colors';
-@import 'global';
-@import 'components/module';
-@import 'home/module';
+@import 'style/overrides';
+@import 'style/variables';
+@import 'style/colors';
+@import 'style/global';
+@import 'style/components/module';
+@import 'style/home/module';

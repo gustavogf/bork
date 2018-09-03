@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="box-header">
-      <h3>{{ title }}</h3>
+      <h4>{{ title }}</h4>
     </div>
     <div class="box-content__list">
       <ul>

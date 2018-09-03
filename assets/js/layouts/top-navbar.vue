@@ -10,8 +10,7 @@
   </div>
 </template>
 <style lang="scss">
-@import 'css/variables';
-
+@import 'css/style/variables';
 .header {
   display: grid;
   grid-columns: 3;

@@ -20,13 +20,14 @@
 export default {
   methods: {
     closeMenu() {
+      debugger;
       document.querySelector('.menu-wrapper').style.width = '0';
     }
   }
 }
 </script>
 <style lang="scss">
-@import 'css/colors';
+@import 'css/style/colors';
 
 .menu__profile {
   background-color: $light-blue;

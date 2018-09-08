@@ -1,15 +1,7 @@
 <template>
   <div>
     <list-box title="Selecione o Squad" :list="buildList()" />
-  <!-- <ul class="collection with-header">
-    <li class="collection-header"><h4>Qual squad?</h4></li>
-    <div v-for="squad in squads">
-      <router-link :to="{ name: 'new_closure_sprint', params: { squadId: squad.id } }" class="collection-item">
-        {{ squad.name }}
-      </router-link>
-    </div>
-  </ul> -->
-</div>
+  </div>
 </template>
 <script>
 import ListBox from '../components/list-box';

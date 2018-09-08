@@ -1,20 +1,19 @@
 <template>
-  <ul class="collection with-header">
-    <li class="collection-header"><h4>Qual sprint?</h4></li>
-    <div v-for="sprint in sprints">
-      <a href="#" class="collection-item" @click="createClosure(sprint.id)">{{ sprint.name }}</a>
-    </div>
-  </ul>
+  <list-box title="Selecione o Sprint" :list="buildList()" />
 </template>
 <script>
 import SprintService from '../services/sprint-service';
 import ClosureService from '../services/closure-service';
+import ListBox from '../components/list-box';
 
 export default {
   data() {
     return {
       sprints: []
     }
+  },
+  components: {
+    ListBox,
   },
   mounted() {
     this.loadSprints();
@@ -38,7 +37,18 @@ export default {
       .catch((error) => {
         alert('Erro ao criar fechamento');
       })
-    }
+    },
+    buildList(){
+      var list = [];
+      this.sprints.forEach((sprint) => {
+        list.push({
+          label: sprint.name,
+          pathName: 'new_closure_sprint',
+          pathParams: { squadId: sprint.id },
+        });
+      });
+      return list;
+    },
   }
 };
 

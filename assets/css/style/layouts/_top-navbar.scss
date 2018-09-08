@@ -1,0 +1,40 @@
+.top-navbar {
+  grid-area: top-navbar;
+  border-bottom: 1px solid $gray;
+  background-color: $white;
+  padding: 12px;
+
+  @media only screen and (max-width: $screen-sm-max) {
+    grid-column: 1/3;
+  }
+}
+
+.top-navbar-content {
+  display: grid;
+  grid-columns: 3;
+  grid-template-areas: 'menu-button title logout';
+}
+
+.top-navbar__menu-button {
+  grid-area: menu-button;
+
+  @media only screen and (min-width: $screen-md-min) {
+    display: none;
+  }
+}
+
+.top-navbar__title {
+  grid-area: title;
+  text-align: center;
+
+  @media only screen and (min-width: $screen-md-min) {
+    grid-column: 1/2;
+    text-align: left;
+  }
+}
+
+.top-navbar__logout {
+  grid-area: logout;
+  text-align: right;
+  align-items: center;
+}

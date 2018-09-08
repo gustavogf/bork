@@ -1,7 +1,7 @@
 <div id="app">
   <div class="grid-container">
-    <div class="menu-wrapper"><side-navbar/></div>
-    <div class="header-wrapper"><top-navbar/></div>
-    <div class="main-wrapper"><main-content/></div>
+    <div class="side-navbar"><side-navbar/></div>
+    <div class="top-navbar"><top-navbar/></div>
+    <div class="main-content"><main-content/></div>
   </div>
 </div>

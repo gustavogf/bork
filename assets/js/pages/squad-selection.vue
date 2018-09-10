@@ -1,10 +1,26 @@
 <template>
-  <div>
-    <list-box title="Selecione o Squad" :list="buildList()" />
+  <div class="box">
+    <div class="box-header">
+      <h4>Selecione o Sprint</h4>
+    </div>
+    <div class="box-content__list">
+      <ul>
+        <li v-for="item in buildList()" class="box-content__list-item">
+          <router-link :to="buildPath(item)" class="box-content__list-item__link" >
+            <span class="box-content__list-item__label">
+              {{ item.label }}
+            </span>
+
+            <i class="material-icons">
+              chevron_right
+            </i>
+          </router-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
-import ListBox from '../components/list-box';
 import SquadService from '../services/squad-service';
 
 export default {
@@ -37,10 +53,10 @@ export default {
       });
       return list;
     },
+    buildPath(item) {
+      return { name: item.pathName, params: item.pathParams };
+    }
   },
-  components: {
-    ListBox,
-  }
 };
 
 </script>

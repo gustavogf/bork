@@ -1,45 +1,31 @@
 <template>
-  <div v-if="postits !== null">
-    <div class="row" align="center">
-      <div class="col s12">
-        <h4>Positivos</h4>
-      </div>
+  <div class="box" v-if="postits">
+    <div class="tab">
+      <button :class="['tab-item', positive ? 'tab-item--active' : '']" @click="setSelected(true)">
+        Positivos
+      </button>
+      <button :class="['tab-item', !positive ? 'tab-item--active' : '']" @click="setSelected(false)">
+        Negativos
+      </button>
     </div>
-    <div v-for="positive in postits.positive.data">
-      <div class="row">
-        <div class="col s12" align="center">
-          <ul class="collection with-header">
-            <li class="collection-header">
-              <h5>{{positive.category}}</h5>
-            </li>
-            <li class="collection-item" v-for="postit in positive.postits">
-              {{ postit.description }}
-            </li>
-          </ul>
+    <div class="box-content">
+      <div class="closure-summary__section" v-for="category in postits.positive.data" v-if="positive">
+        <div class="closure-summary__category">
+          <span>{{ category.category }}</span>
+          <span>{{ category.total }}</span>
+        </div>
+        <div class="closure-summary__postit-description" v-for="positivePostit in category.postits" >
+          {{ positivePostit.description }}
         </div>
       </div>
-    </div>
-    <div class="row" align="center">
-      <div class="col s12">
-        <h4>Negativos</h4>
-      </div>
-    </div>
-    <div v-for="negative in postits.negative.data">
-      <div class="row">
-        <div class="col s12" align="center">
-          <ul class="collection with-header">
-            <li class="collection-header"><h5>{{negative.category}}</h5></li>
-            <li class="collection-item" v-for="postit in negative.postits">
-              {{ postit.description }}
-            </li>
-          </ul>
+      <div class="closure-summary__section" v-for="category in postits.negative.data" v-if="!positive">
+        <div class="closure-summary__category">
+          <span>{{ category.category }}</span>
+          <span>{{ category.total }}</span>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col s12" align="center">
-        Positivos: {{ postits.positive.total }}
-        Negativos: {{ postits.negative.total }}
+        <div class="closure-summary__postit-description" v-for="negativePostit in category.postits" >
+          {{ negativePostit.description }}
+        </div>
       </div>
     </div>
   </div>
@@ -54,12 +40,16 @@ export default {
     return {
       closureId: this.$route.params.id,
       postits: null,
+      positive: true
     }
   },
   mounted() {
     this.checkIfClosureIsFinished();
   },
   methods: {
+    setSelected(positive) {
+      this.positive = positive;
+    },
     loadPostits() {
       PostitService.getPostitsForSummary(this.closureId)
       .then((response) => {

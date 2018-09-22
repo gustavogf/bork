@@ -1,0 +1,31 @@
+.tab {
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  overflow: hidden;
+  border-bottom: 1px solid $gray;
+}
+
+.tab-item {
+  outline: none;
+  width: 100%;
+  border: none;
+  background-color: inherit;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: .83em;
+
+  &:hover {
+    background-color: #ddd;
+  }
+}
+
+.tab-item--active {
+  background-color: #ccc;
+
+  &:hover {
+    background-color: #ccc;
+  }
+}

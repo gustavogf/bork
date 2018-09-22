@@ -1,0 +1,27 @@
+.closure-summary__category {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid $gray;
+  padding: 8px;
+}
+
+.closure-summary__postit-description {
+  font-size: .83rem;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 8px;
+  padding-bottom: 8px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $gray;
+  }
+}
+
+.closure-summary__section {
+  border: 1px solid $gray;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
